@@ -1,0 +1,24 @@
+.gambar {
+    position: relative;
+    width: max-content;
+    transition: 0.3s !important;
+
+}
+
+.gambar::after {
+    content: '';
+    position: absolute;
+    opacity: 0;
+    top: -7px;
+    left: -7px;
+    bottom: 12px;
+    right: -7px;
+    border: 2px solid #0643A0  !important;
+    transform: scale(0.95);
+    transition: 0.3s;
+}
+
+.gambar:hover::after {
+    opacity: 1;
+    transform: scale(1)
+}
