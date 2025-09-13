@@ -3,16 +3,31 @@
 @section('navbar')
 
 <link rel="stylesheet" href="{{ asset('css/home.css')}}">
+@if (Session::get('success'))
+        {{-- Auth::user() : mengambil data pengguna, Auth::user()->fieldtableusers --}}
+    <div class="alert alert-success container w-100 rounded-3" style="margin-top: 90px; font-family: Unbounded;">{{ Session::get('success') }}
+        <b>Selamat Datang, {{ Auth::user()->name }}!</b>
+    </div>
+@endif
+@if (Session::get('logout'))
+    <div class="alert alert-warning container rounded-3" style="margin-top: 90px; font-family: Unbounded;">{{ Session::get('logout') }}</div>
+@endif
 
 <div class="container">
     <div class="text-center" style="margin: 120px 0px">
         <h1 class="" style="font-family: Barbra; font-size: 85px;">OSIS - MPR</h1>
         <h1 class="wk-text" style="font-family: Unbounded; font-size: 85px;">SMK WIKRAMA BOGOR</h1>
         <p class="" style="font-family: Unbounded">Utamakan Belajar, Nomor Satukan Organisasi</p>
+        @if (Auth::check())
+            <div class="mt-4" style="font-family: Unbounded;">
+                <a href="{{ route('logout') }}" class="btn btn-login-regis rounded-pill fs-2" style="padding: 6px 65px !important;">Logout</a>
+            </div>
+        @else
         <div class="mt-4" style="font-family: Unbounded;">
             <a href="{{ route('login')}}" class="btn btn-login-regis rounded-pill fs-2" style="padding: 6px 65px !important;">Login</a>
             <a href="{{ route('register')}}" class="btn btn-login-regis rounded-pill px-5 fs-2">Register</a>
         </div>
+        @endif
     </div>
 </div>
 
@@ -27,9 +42,21 @@
         </div>
     </div>
 
-    <div class="text-center" style="font-family: Unbounded; margin: 80px 0px ;">
-        <a href="{{ route('laporGDS')}}" class="btn btn-lapor-gds shadow-lg fw-semibold rounded-pill py-3 px-5 fs-2">Lapor GDS</a>
-    </div>
+    @if (Auth::check() && Auth::user()->role == 'staff')
+        <div class="text-center" style="font-family: Unbounded; margin: 80px 0px ;">
+            <a href="{{ route('staff.laporGDS')}}" class="btn btn-lapor-gds shadow-lg fw-semibold rounded-pill py-3 px-5 fs-3">Lapor GDS</a>
+        </div>
+    @else
+        <div class="text-center d-none" style="font-family: Unbounded; margin: 80px 0px ;">
+            <a href="{{ route('staff.laporGDS')}}" class="btn btn-lapor-gds shadow-lg fw-semibold rounded-pill py-3 px-5 fs-3">Lapor GDS</a>
+        </div>
+    @endif
+
+    @if (Auth::check() && Auth::user()->role == 'staff')
+        <div class="d-none"></div>
+    @else
+        <div class="p-5"></div>
+    @endif
 
     <div class="container pb-5" style="font-family: Unbounded;">
         <h1 class="" style="max-width: 550px">Siapa Aja di Balik OSIS-MPR Wikrama?</h1>

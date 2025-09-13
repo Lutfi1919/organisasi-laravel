@@ -20,14 +20,19 @@
 
     <nav class="navbar shadow bg-body-tertiary py-2">
         <div class="container container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="https://www.instagram.com/osismpr_smkwikrama?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">
                 <img src=" {{ asset('images/Logo_OSIS_WK.jpeg')}}" alt="Logo" width="30" height="30" class="d-inline-block align-text-center shadow" style="border-radius: 100%">
                     <span class="osis ms-2 fs-6">OSIS - MPR</span>
             </a>
             <div class="" style="font-family: Unbounded;">
-                <a class="ms-5 text-white text-decoration-none" href="{{ route('home')}}" style="font-size: 18px">Home</a>
-                <a class="ms-5 text-white text-decoration-none" href="{{ route('gallery')}}" style="font-size: 18px">Gallery</a>
-                <a class="btn btn-lapor-nav ms-5 px-4 py-1 text-white text-decoration-none" href="{{ route('laporGDS')}}" style="background-color: black; font-size: 18px; border-radius: 12px;">Lapor GDS</a>
+                @if (Auth::check() && Auth::user()->role == 'staff')
+                    <a class="ms-5 text-white text-decoration-none" href="{{ route('home')}}" style="font-size: 18px">Home</a>
+                    <a class="ms-5 text-white text-decoration-none" href="{{ route('gallery')}}" style="font-size: 18px">Gallery</a>
+                    <a class="btn btn-lapor-nav ms-5 px-4 py-1 text-white text-decoration-none" href="{{ route('staff.laporGDS')}}" style="background-color: black; font-size: 18px; border-radius: 12px;">Lapor GDS</a>
+                @else
+                    <a class="ms-5 text-white text-decoration-none" href="{{ route('home')}}" style="font-size: 18px">Home</a>
+                    <a class="ms-5 text-white text-decoration-none" href="{{ route('gallery')}}" style="font-size: 18px">Gallery</a>
+                @endif
             </div>
         </div>
     </nav>
@@ -55,9 +60,9 @@
                 <p style="margin-top: -17px">osismpr@smkwikrama.sch.id</p>
                 <p>Ikuti Kami</p>
                 <div class="">
-                    <a href="" class="fs-2 logo text-white"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="" class="fs-2 logo text-white ms-2"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="" class="fs-2 logo text-white ms-2"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://www.instagram.com/osismpr_smkwikrama?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="fs-4 logo text-white"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="" class="fs-4 logo text-white ms-2"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.youtube.com/@osismpr-smkwikramabogor9395" class="fs-4 logo text-white ms-2"><i class="fa-brands fa-youtube"></i></a>
                 </div>
             </div>
         </div>
