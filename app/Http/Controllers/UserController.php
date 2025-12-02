@@ -15,7 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::whereIn('role', ['admin', 'staff'])->get();
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -31,39 +32,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|min:3',
-            'nis' => 'required|min:8',
-            'email' => 'required|email:dns',
-            'password' => 'required|min:8',
-        ], [
-            'name.required' => 'Nama tidak boleh kosong',
-            'name.min' => 'Nama harus diisi minimal 3 karakter',
-            'nis.required' => 'NIS harus diisi minimal 8 karakter',
-            'nis.min' => 'NIS harus diisi minimal 8 karakter',
-            'email.required' => 'Email tidak boleh kosong',
-            'email.email' => 'Email harus diisi dengan data valid',
-            'password.required' => 'Password tidak boleh kosong',
-            'password.min' => 'Password harus diisi minimal 8 karakter',
-        ]);
 
-        $createUser = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            // Hash : enkripsi data agar yg tersimpan di db karakter acak, untuk menghindari kebocoran data password
-            'password' => Hash::make($request->password),
-            // role diisi langsung dengan user, agar tdk mengakses admin/staff
-            'role' => 'user',
-            'nis' => $request->nis,
-        ]);
-
-         if ($createUser) {
-            // redirect() : memindahkan halaman, route() : memanggil name route, with () : mengirimkan session data, biasanya untuk notifikasi
-            return redirect()->route('login')->with('ok', 'Berhasil membuat akun! silahkan login');
-        } else {
-            // back() : kembali ke halaman sebelumnya
-            return redirect()->back()->with('error', 'Gagal! silahkan coba lagi');
-        }
     }
 
     /**
@@ -79,7 +48,7 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
     }
 
     /**
@@ -93,9 +62,9 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+
     }
 
     public function login(Request $request)
@@ -107,11 +76,15 @@ class UserController extends Controller
             'email.required' => 'Email Harus Diisi',
             'password.required' => 'Password Harus Diisi'
         ]);
+
         $data = $request->only(keys: ['email', 'password']);
 
         if(Auth::attempt($data)) {
-            if (Auth::user()->role == 'staff') {
-                return redirect()->route('staff.home') -> with('success', 'Login Berhasil Dilakukan!');
+            // kalau admin ke dashboard, selain itu home
+            if (Auth::user()->role == 'admin') {
+                return redirect()->route('admin.dashboard') -> with('success', 'Login Berhasil Dilakukan!');
+            } elseif (Auth::user()->role == 'staff') {
+                return redirect()->route('home') -> with('success', 'Login Berhasil Dilakukan!');
             } else {
                 return redirect()->route('home')->with('success', 'Login Berhasil Dilakukan');
             }

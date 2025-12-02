@@ -23,9 +23,13 @@
                 <a href="{{ route('logout') }}" class="btn btn-login-regis rounded-pill fs-2" style="padding: 6px 65px !important;">Logout</a>
             </div>
         @else
-        <div class="mt-4" style="font-family: Unbounded;">
-            <a href="{{ route('login')}}" class="btn btn-login-regis rounded-pill fs-2" style="padding: 6px 65px !important;">Login</a>
-            <a href="{{ route('register')}}" class="btn btn-login-regis rounded-pill px-5 fs-2">Register</a>
+        <div class="mt-4 tooltip-login" style="font-family: Unbounded;">
+            <a href="{{ route('login')}}" class="btn btn-login-regis rounded-pill fs-2" style="padding: 6px 65px !important;"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Hanya untuk OSIS dan Admin">
+                Login
+            </a>
         </div>
         @endif
     </div>
@@ -62,76 +66,75 @@
         <h1 class="" style="max-width: 550px">Siapa Aja di Balik OSIS-MPR Wikrama?</h1>
         <p class="mt-4 mb-5">Inilah susunan pengurus OSIS-MPR SMK Wikrama yang bakal jadi motor penggerak berbagai kegiatan seru di sekolah. Setiap posisi punya peran penting, dan bersama-sama kita wujudkan sekolah yang aktif, kreatif, dan berprestasi.</p>
         <div class="row">
-            <div class="col-4 card card-anggota" style="width: ;">
-                <img src="https://i.pinimg.com/736x/eb/76/a4/eb76a46ab920d056b02d203ca95e9a22.jpg" class="card-img-top ci-anggota shadow" alt="Gambar anggota" style="height: 380px; object-fit: cover;">
-                <div class="card-body cb-anggota">
-                    <a class="btn btn-nama rounded-pill px-4">Budi Srepet</a>
-                    <p class="card-text mt-1">Ketua</p>
+            @foreach ($councils as $key => $council)
+                <div class="col-4 card card-anggota" style="width: ;">
+                    <img src="{{ asset('storage/' . $council->photo_council) }}" class="card-img-top ci-anggota shadow" alt="Gambar anggota" style="height: 380px; object-fit: cover;">
+                    <div class="card-body cb-anggota">
+                        <a class="btn btn-nama rounded-pill px-4">{{ $council['name'] }}</a>
+                        @if ($key == 0)
+                            <p class="card-text mt-1">Ketua</p>
+                        @elseif ($key == 1)
+                            <p class="card-text mt-1">Wakil Ketua</p>
+                        @elseif ($key == 2)
+                            <p class="card-text mt-1">Bendahara</p>
+                        @elseif ($key == 3)
+                            <p class="card-text mt-1">Sekretaris</p>
+                        @else
+                            <p class="card-text mt-1">Anggota</p>
+                        @endif
+                    </div>
                 </div>
-            </div>
-            <div class="col-4 card card-anggota">
-                <img src="https://i.pinimg.com/736x/a1/64/de/a164de3d8f1190f182c754a066123edd.jpg" class="card-img-top ci-anggota shadow" alt="Gambar anggota" style="height: 380px; object-fit: cover;">
-                <div class="card-body cb-anggota">
-                    <a class="btn btn-nama rounded-pill px-4">Siti Granger</a>
-                    <p class="card-text mt-1">Wakil Ketua</p>
-                </div>
-            </div>
-            <div class="col-4 card card-anggota" style="width: ;">
-                <img src="https://i.pinimg.com/1200x/3a/1f/ab/3a1fab0bf9d70e9b4f52792cefdc3328.jpg" class="card-img-top ci-anggota shadow" alt="Gambar anggota" style="height: 380px; object-fit: cover;">
-                <div class="card-body cb-anggota">
-                    <a class="btn btn-nama rounded-pill px-4">Nanang</a>
-                    <p class="card-text mt-1">Bendahara</p>
-                </div>
-            </div>
-            <div class="col-4 card card-anggota" style="width: ;">
-                <img src="https://i.pinimg.com/736x/92/12/46/9212466a7a662172657b69e063012c23.jpg" class="card-img-top ci-anggota shadow" alt="Gambar anggota" style="height: 380px; object-fit: cover;">
-                <div class="card-body cb-anggota">
-                    <a class="btn btn-nama rounded-pill px-4">Asep Resink</a>
-                    <p class="card-text mt-1">Sekretaris</p>
-                </div>
-            </div>
-            <div class="col-4 card card-anggota" style="width: ;">
-                <img src="https://i.pinimg.com/736x/6d/5e/05/6d5e05772a65bc525497fe65d82bdea4.jpg" class="card-img-top ci-anggota shadow" alt="Gambar anggota" style="height: 380px; object-fit: cover;">
-                <div class="card-body cb-anggota">
-                    <a class="btn btn-nama rounded-pill px-4">James Bond</a>
-                    <p class="card-text mt-1">Anggota</p>
-                </div>
-            </div>
-            <div class="col-4 card card-anggota" style="width: ;">
-                <img src="https://i.pinimg.com/736x/69/29/66/692966d68bd0eebe483d45b473473c95.jpg" class="card-img-top ci-anggota shadow" alt="Gambar anggota" style="height: 380px; object-fit: cover;">
-                <div class="card-body cb-anggota">
-                    <a class="btn btn-nama rounded-pill px-4">Alex Wijaya</a>
-                    <p class="card-text mt-1">Anggota</p>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 
     <div class="container-fluid text-white event mt-5 pb-5" style="font-family: Unbounded">
         <h1 class="text-center pt-5">UPCOMING EVENTS!🚀</h1>
-        <div class="row pt-5">
-            <div class="col-6">
-                <div class="card card-event ps-5" style="width:;">
-                    <img src="https://i.pinimg.com/736x/a7/ab/b6/a7abb66b2fd1c4280530d22bcebb3c99.jpg" class="card-img-top ci-event rounded-4 shadow" alt="Pentas Seni" style="height: 370px; object-fit: cover;">
-                    <div class="card-body cb-event">
-                        <h5 class="card-title fs-3">Pentas Seni</h5>
-                        <p class="card-text text-secondary" style="margin-top: -5px">1 Januari - 2 Januari 2025</p>
+        <div id="eventCarousel" class="carousel slide pt-5" data-bs-ride="carousel">
+            <div class="carousel-inner">
+
+                @foreach ($events->chunk(2) as $chunkIndex => $eventChunk)
+                    <div class="carousel-item {{ $chunkIndex == 0 ? 'active' : '' }}">
+                        <div class="row justify-content-center">
+                            @foreach ($eventChunk as $event)
+                                <div class="col-md-5">
+                                    <div class="card card-event rounded-4">
+                                        <img src="{{ asset('storage/' . $event->photo_event) }}" class="card-img-top rounded-4" style="height:370px;object-fit:cover;">
+                                        <div class="card-body text-center">
+                                            <h5 class="fs-3">{{ $event->name }}</h5>
+                                            <p class="text-secondary" style="margin-top:-5px">{{ $event->formatted_date }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="card card-event pe-5" style="width:;">
-                    <img src="https://i.pinimg.com/736x/7a/94/55/7a9455742a84e6b61c2e52ccb50c51d5.jpg" class="card-img-top ci-event rounded-4 shadow" alt="Rombel Meeting" style="height: 370px; object-fit: cover;">
-                    <div class="card-body cb-event">
-                        <h5 class="card-title fs-3">Class Meeting</h5>
-                        <p class="card-text text-secondary" style="margin-top: -5px">1 Januari - 2 Januari 2025</p>
-                    </div>
-                </div>
-            </div>
+                @endforeach
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#eventCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#eventCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
     </div>
 
 @endsection
+
+@push('script')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            [...tooltipTriggerList].forEach(tooltipTriggerEl => {
+                new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+
+    </script>
+@endpush
 
 @section('footer')
 @endsection

@@ -20,7 +20,7 @@ class isStaff
         if (Auth::check() && Auth::user()->role == 'staff') {
             return $next($request);
         } else {
-            return redirect()->route('home');
+            return redirect()->route('home')->with('errorMid', 'Tidak bisa mengakses halaman tersebut!');
         }
     }
 }

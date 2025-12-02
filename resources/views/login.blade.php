@@ -5,8 +5,8 @@
 
 <link rel="stylesheet" href="{{ asset(path: 'css/GDS.css')}}">
 
-
-<form action="{{ route('login.auth') }}" method="POST" class="container" style="margin-top: 160px !important; margin-bottom: 120px; font-family: Unbounded;">
+<h1 class="text-center mb-5" style="margin-top: 160px !important; font-family: Unbounded;">Login</h1>
+<form action="{{ route('login.auth') }}" method="POST" class="container" style="margin-bottom: 120px; font-family: Unbounded;">
     @csrf
         @if (Session::get('ok'))
             <div class="alert alert-success">{{ Session::get('ok') }}</div>
@@ -16,26 +16,26 @@
         @endif
     <div class="row">
         <div class="col-6">
-            <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Email</label>
-                <input type="email" class="form-control border-black" id="exampleFormControlInput1" name="email">
+            <div class="">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email">
             </div>
             @error('email')
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
         <div class="col-6">
-            <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Password</label>
-                <input type="password" class="form-control border-black" id="exampleFormControlInput1" name="password">
+            <div class="">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
             </div>
             @error('password')
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
     </div>
-    <div class="text-center">
-        <button type="submit" class="btn btn-submit text-white" style="background-color: #0643A0; border-radius: 13px; padding: 7px 250px;">Login</button>
+    <div class="text-center mt-3">
+        <button type="submit" class="btn btn-submit py-2 text-white" style="background-color: #0643A0; border-radius: 13px; padding: 7px 250px;">Login</button>
     </div>
 </form>
 

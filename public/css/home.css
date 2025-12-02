@@ -24,7 +24,6 @@
 .visiMisi {
     background-color: #0643A0 !important;
     box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5);
-    /* padding-right: 0px !important; */
 }
 
 .card-anggota {
@@ -72,4 +71,55 @@
 
 .cb-event {
     margin-left: -15px;
+}
+
+.table-hover tbody tr td {
+    color: #565656;
+    font-size: 14px;
+}
+
+.table-hover tbody tr {
+    transition: transform 0.2s ease-in-out;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f8f9fa;
+    transform: scale(1.01);
+}
+
+.custom-table {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.custom-table thead th {
+    /* background: #007bff; */
+    color: Black;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border: none;
+}
+
+.action-btns a,
+.action-btns form {
+    display: inline-block;
+}
+
+.utility-btns {
+    transition: 0.2s;
+}
+
+.utility-btns:active {
+    transform: scale(0.85);
+}
+
+.card-dash {
+    transition: 0.3s;
+}
+
+.card-dash:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.358) !important;
 }

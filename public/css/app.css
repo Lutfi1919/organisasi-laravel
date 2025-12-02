@@ -43,3 +43,24 @@ nav {
     width: 100%;
     z-index: 9999;
 }
+
+.btn-nav {
+    transition: 0.2s;
+}
+
+.btn-nav:hover {
+    background-color: rgba(169, 169, 169, 0.103);
+}
+
+.btn-lapor-nav {
+    transition: 0.2s !important;
+}
+
+.btn-lapor-nav:hover {
+    background-color: rgb(42, 42, 42) !important;
+}
+
+.footer-2 {
+    position: static;
+    bottom: 0px;
+}

@@ -10,8 +10,8 @@
     <div class="row">
         <div class="col-6">
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Nama</label>
-                <input type="text" class="form-control border-black @error ('name') is-invalid @enderror" id="exampleFormControlInput1" name="name" value="{{ old('name')}}">
+                <label for="name" class="form-label">Nama</label>
+                <input type="text" class="form-control border-black @error ('name') is-invalid @enderror" id="name" name="name" value="{{ old('name')}}">
             </div>
             @error('name')
                 {{-- @error('name_input') : mengambil error validasi input tsb --}}
@@ -20,8 +20,8 @@
         </div>
         <div class="col-6">
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">NIS</label>
-                <input type="text" class="form-control border-black @error ('nis') is-invalid @enderror" id="exampleFormControlInput1" name="nis" value="{{ old('nis')}}">
+                <label for="nis" class="form-label">NIS</label>
+                <input type="text" class="form-control border-black @error ('nis') is-invalid @enderror" id="nis" name="nis" value="{{ old('nis')}}">
             </div>
             @error('nis')
                     <small class="text-danger">{{ $message }}</small>
@@ -29,8 +29,8 @@
         </div>
         <div class="col-6">
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Email</label>
-                <input type="email" class="form-control border-black @error ('email') is-invalid @enderror" id="exampleFormControlInput1" name="email" value="{{ old('email')}}">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control border-black @error ('email') is-invalid @enderror" id="email" name="email" value="{{ old('email')}}">
             </div>
             @error('email')
                 <small class="text-danger">{{ $message }}</small>
@@ -38,8 +38,8 @@
         </div>
         <div class="col-6">
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Password</label>
-                <input type="password" class="form-control border-black @error ('password') is-invalid @enderror" id="exampleFormControlInput1" name="password" value="{{ old('password')}}">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control border-black @error ('password') is-invalid @enderror" id="password" name="password" value="{{ old('password')}}">
             </div>
             @error('password')
                 <small class="text-danger">{{ $message }}</small>

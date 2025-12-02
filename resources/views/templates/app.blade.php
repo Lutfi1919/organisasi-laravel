@@ -12,6 +12,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Outfit:wght@100..900&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Sora:wght@100..800&family=Unbounded:wght@200..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    {{-- CDN CHARTJS --}}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {{-- CDN JQUERY --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
 </head>
 <body>
     <div class="">
@@ -22,21 +28,46 @@
         <div class="container container-fluid">
             <a class="navbar-brand" href="https://www.instagram.com/osismpr_smkwikrama?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">
                 <img src=" {{ asset('images/Logo_OSIS_WK.jpeg')}}" alt="Logo" width="30" height="30" class="d-inline-block align-text-center shadow" style="border-radius: 100%">
-                    <span class="osis ms-2 fs-6">OSIS - MPR</span>
+                <span class="osis ms-2 fs-6">OSIS - MPR</span>
             </a>
             <div class="" style="font-family: Unbounded;">
                 @if (Auth::check() && Auth::user()->role == 'staff')
-                    <a class="ms-5 text-white text-decoration-none" href="{{ route('home')}}" style="font-size: 18px">Home</a>
-                    <a class="ms-5 text-white text-decoration-none" href="{{ route('gallery')}}" style="font-size: 18px">Gallery</a>
+                    <a class="btn-nav p-1 px-3 rounded-2 ms-5 text-white text-decoration-none" href="{{ route('home')}}" style="font-size: 18px">Home</a>
+                    <a class="btn-nav p-1 px-3 rounded-2 ms-5 text-white text-decoration-none" href="{{ route('gallery')}}" style="font-size: 18px">Gallery</a>
                     <a class="btn btn-lapor-nav ms-5 px-4 py-1 text-white text-decoration-none" href="{{ route('staff.laporGDS')}}" style="background-color: black; font-size: 18px; border-radius: 12px;">Lapor GDS</a>
+
+                @elseif (Auth::check() && Auth::user()->role == 'admin')
+                    <div class="dropdown">
+                        <a class="btn-nav p-1 px-3 rounded-2 ms-5 text-white text-decoration-none" href="{{ route('logout')}}" style="font-size: 18px">Logout</a>
+                        <a class="btn-nav p-1 px-3 rounded-2 ms-5 text-white text-decoration-none" href="{{ route('admin.dashboard')}}" style="font-size: 18px">Dashboard</a>
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Data Master
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="btn-nav p-1 px-3 rounded-2 ms-5 text-decoration-none" href="{{ route('admin.users.index')}}" style="font-size: 18px">Pengguna</a>
+                            </li>
+                            <li>
+                                <a class="btn-nav p-1 px-3 rounded-2 ms-5 text-decoration-none" href="{{ route('home')}}" style="font-size: 18px">Home</a>
+                            </li>
+                            <li>
+                                <a class="btn-nav p-1 px-3 rounded-2 ms-5 text-decoration-none" href="{{ route('home')}}" style="font-size: 18px">Home</a>
+                            </li>
+                        </ul>
+                    </div>
+
                 @else
-                    <a class="ms-5 text-white text-decoration-none" href="{{ route('home')}}" style="font-size: 18px">Home</a>
-                    <a class="ms-5 text-white text-decoration-none" href="{{ route('gallery')}}" style="font-size: 18px">Gallery</a>
+                    <a class="btn-nav p-1 px-3 rounded-2 ms-5 text-white text-decoration-none" href="{{ route('home')}}" style="font-size: 18px">Home</a>
+                    <a class="btn-nav p-1 px-3 rounded-2 ms-5 text-white text-decoration-none" href="{{ route('gallery')}}" style="font-size: 18px">Gallery</a>
                 @endif
             </div>
         </div>
     </nav>
-
+    @if (Session::get('errorMid'))
+        <div class="alert alert-danger container" style="margin-top: 90px">
+            {{ Session::get('errorMid') }}
+        </div>
+    @endif
 
         @yield('navbar')
     </div>
@@ -71,6 +102,9 @@
 
         @yield('footer')
     </div>
+
+    @stack('script')
+
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js" integrity="sha384-7qAoOXltbVP82dhxHAUje59V5r2YsVfBafyUDxEdApLPmcdhBPg1DKg1ERo0BZlK" crossorigin="anonymous"></script>

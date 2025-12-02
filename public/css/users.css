@@ -1,0 +1,41 @@
+.table-hover tbody tr {
+    transition: transform 0.2s ease-in-out;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f8f9fa;
+    transform: scale(1.01);
+}
+
+.custom-table {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.custom-table thead th {
+    background: #007bff;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border: none;
+}
+
+.action-btns a,
+.action-btns form {
+    display: inline-block;
+}
+
+.btn {
+    border-radius: 8px !important;
+    font-size: 0.9rem;
+}
+
+.utility-btns {
+    transition: 0.5s;
+}
+
+.utility-btns:active {
+    transform: scale(0.85);
+}

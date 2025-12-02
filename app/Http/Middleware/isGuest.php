@@ -26,7 +26,7 @@ class isGuest
                 return redirect()->route('adimin.dashboard');
             } else {
                 // selain admin ke home
-                return redirect()->route('home');
+                return redirect()->route('home')->with('errorMid', 'Tidak bisa mengakses halaman tersebut!');;
             }
         }
     }
