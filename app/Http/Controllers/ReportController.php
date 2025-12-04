@@ -37,7 +37,7 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'name' => 'required|min:3',
             'nis' => 'required|min:8',
             'name_reporter' => 'required|min:3',
@@ -61,8 +61,8 @@ class ReportController extends Controller
         ]);
 
         $council = Council::firstOrCreate(
-['nis' => $validated['nis_reporter']],
-    ['name' => $validated['name_reporter']]
+['nis' => $request['nis_reporter']],
+    ['name' => $request['name_reporter']]
         );
 
         $gambar = $request->file('photo_report');
@@ -70,16 +70,16 @@ class ReportController extends Controller
         $path = $gambar->storeAs("reports", $namaGambar, "public");
 
         $suspect = Suspect::firstOrCreate(
-['nis' => $validated['nis']],
-    ['name' => $validated['name']]
+['nis' => $request['nis']],
+    ['name' => $request['name']]
         );
 
         $createReport = Report::create([
-            'council_id' => $council->id,
-            'suspect_id' => $suspect->id,
-            'category_id' => $validated['action'],
+            'council_id' => $council['id'],
+            'suspect_id' => $suspect['id'],
+            'category_id' => $request['action'],
             'photo_report' => $path,
-            'date' => $validated['day_date'],
+            'date' => $request['day_date'],
         ]);
 
         if ($createReport) {
@@ -149,18 +149,18 @@ class ReportController extends Controller
         }
 
         $council = Council::firstOrCreate(
-    ['nis' => $request->nis_reporter],
-        ['name' => $request->name_reporter]
+    ['nis' => $request['nis_reporter']],
+        ['name' => $request['name_reporter']]
         );
 
         $suspect = Suspect::firstOrCreate(
-    ['nis' => $request->nis],
-        ['name' => $request->name]
+    ['nis' => $request['nis']],
+        ['name' => $request['name']]
         );
 
         $updateData = $report->update([
-            'council_id' => $council->id,
-            'suspect_id' => $suspect->id,
+            'council_id' => $council['id'],
+            'suspect_id' => $suspect['id'],
             'category_id' => $request['action'],
             'photo_report' => $path ?? $report['photo_report'],
             'date' => $request['day_date'],

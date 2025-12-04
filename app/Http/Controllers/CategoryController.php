@@ -12,7 +12,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all(); // ambil semua perbuatan
+        $categories = Category::all();
         return view('staff.laporGDS', compact('categories'));
     }
 
