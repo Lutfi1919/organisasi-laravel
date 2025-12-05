@@ -23,7 +23,7 @@ class isGuest
             // jika sudah login
             if (Auth::user()->admin == 'admin') {
                 // jika role admin, ke admin.dashboard
-                return redirect()->route('adimin.dashboard');
+                return redirect()->route('admin.dashboard');
             } else {
                 // selain admin ke home
                 return redirect()->route('home')->with('errorMid', 'Tidak bisa mengakses halaman tersebut!');;

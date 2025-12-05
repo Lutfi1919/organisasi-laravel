@@ -77,10 +77,9 @@ class UserController extends Controller
             'password.required' => 'Password Harus Diisi'
         ]);
 
-        $data = $request->only(keys: ['email', 'password']);
+        $data = $request->only(['email', 'password']);
 
         if(Auth::attempt($data)) {
-            // kalau admin ke dashboard, selain itu home
             if (Auth::user()->role == 'admin') {
                 return redirect()->route('admin.dashboard') -> with('success', 'Login Berhasil Dilakukan!');
             } elseif (Auth::user()->role == 'staff') {
